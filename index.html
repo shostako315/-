@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI×バイブコーディング | フォーティエンスコンサルティング株式会社｜NTTデータグループ</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    color: #1a1a2e;
+    background: #fff;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 80px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 4px;
+    color: #1a1a2e;
+    text-decoration: none;
+  }
+  .logo span {
+    display: block;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 3px;
+    color: #666;
+    margin-top: -2px;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  nav a {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a1a2e;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: #4a3aaa; }
+
+  .nav-divider {
+    width: 1px;
+    height: 20px;
+    background: #ccc;
+  }
+
+  .lang-switch {
+    font-size: 13px;
+    color: #999;
+  }
+  .lang-switch .active { color: #1a1a2e; font-weight: 600; }
+
+  .contact-btn {
+    background: #1a1a2e;
+    color: #fff !important;
+    padding: 10px 24px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+  .contact-btn:hover { background: #4a3aaa; }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    height: 360px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #0d0d2b 0%, #1a1a4e 30%, #0a2a4a 60%, #0d3d2d 100%);
+    z-index: 0;
+  }
+  .hero-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 50%, rgba(100, 60, 255, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 70% 30%, rgba(0, 200, 150, 0.1) 0%, transparent 40%),
+      radial-gradient(circle at 85% 70%, rgba(255, 100, 50, 0.08) 0%, transparent 35%);
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Floating chart-like elements */
+  .hero-chart {
+    position: absolute;
+    z-index: 1;
+    opacity: 0.2;
+  }
+  .hero-chart svg { width: 100%; height: 100%; }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding-left: 180px;
+  }
+  .hero-content h1 {
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .hero-content .subtitle {
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 8px;
+    font-weight: 300;
+  }
+
+  /* ===== INTRO ===== */
+  .intro {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 180px;
+  }
+  .intro p {
+    font-size: 15px;
+    line-height: 2;
+    color: #333;
+  }
+
+  /* ===== SERVICES ===== */
+  .services {
+    background: #f5f5f8;
+    padding: 80px 0;
+  }
+  .services-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 180px;
+  }
+  .services-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 48px;
+    color: #1a1a2e;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .service-card {
+    background: #fff;
+    padding: 40px 36px;
+    border-radius: 2px;
+    transition: box-shadow 0.3s;
+  }
+  .service-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  .service-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .service-card ul {
+    list-style: disc;
+    padding-left: 20px;
+  }
+  .service-card li {
+    font-size: 14px;
+    color: #4a3aaa;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  .service-card li:hover {
+    text-decoration: underline;
+  }
+
+  /* ===== CONSULTANT ===== */
+  .consultant-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 180px;
+  }
+  .consultant-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #1a1a2e;
+  }
+  .consultant-card {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 24px;
+    background: #fafafa;
+    border-radius: 4px;
+    max-width: 400px;
+    cursor: pointer;
+    transition: box-shadow 0.3s;
+  }
+  .consultant-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+  .consultant-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4a3aaa, #7b68ee);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: #fff;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .consultant-info h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 4px;
+  }
+  .consultant-info p {
+    font-size: 13px;
+    color: #666;
+  }
+  .consultant-info .role {
+    color: #4a3aaa;
+    font-weight: 500;
+    font-size: 12px;
+  }
+
+  /* ===== CONTACT BANNER ===== */
+  .contact-banner {
+    background: #1a1a2e;
+    padding: 48px 0;
+    text-align: center;
+  }
+  .contact-banner p {
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+  .contact-banner a {
+    display: inline-block;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 14px 48px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+  }
+  .contact-banner a:hover {
+    background: #fff;
+    color: #1a1a2e;
+  }
+
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 180px;
+    font-size: 12px;
+    color: #999;
+  }
+  .breadcrumb a {
+    color: #999;
+    text-decoration: none;
+  }
+  .breadcrumb a:hover { color: #4a3aaa; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: #fff;
+    border-top: 1px solid #eee;
+    padding: 60px 40px 30px;
+  }
+  .footer-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    margin-bottom: 40px;
+  }
+  .footer-col h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+  .footer-col a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: #4a3aaa; }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+  }
+  .footer-bottom .policies {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .footer-bottom .policies a {
+    font-size: 11px;
+    color: #999;
+    text-decoration: none;
+  }
+  .footer-bottom .copyright {
+    font-size: 11px;
+    color: #999;
+  }
+  .footer-ntt {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: #999;
+    letter-spacing: 1px;
+  }
+
+  /* ===== APRIL FOOLS BANNER ===== */
+  .april-fools-banner {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255, 50, 50, 0.9);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    z-index: 999;
+    animation: pulse 2s infinite;
+    cursor: default;
+    backdrop-filter: blur(4px);
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  /* ===== NEW BADGE ===== */
+  .new-badge {
+    display: inline-block;
+    background: #ff3232;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin-left: 8px;
+    vertical-align: middle;
+    animation: blink 1.5s infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1024px) {
+    .hero-content { padding-left: 60px; }
+    .intro, .services-inner, .consultant-section, .breadcrumb { padding-left: 60px; padding-right: 60px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    header { padding: 0 20px; }
+    nav { display: none; }
+    .hero-content { padding-left: 24px; }
+    .hero-content h1 { font-size: 28px; }
+    .intro, .services-inner, .consultant-section, .breadcrumb { padding-left: 24px; padding-right: 24px; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo">
+    FORTIENCE
+    <span>CONSULTING</span>
+  </a>
+  <nav>
+    <a href="#">Industry</a>
+    <a href="#">Service</a>
+    <a href="#">Insight</a>
+    <a href="#">Expert</a>
+    <a href="#">Company</a>
+    <a href="#">Careers</a>
+    <div class="nav-divider"></div>
+    <a href="#">News</a>
+    <span class="lang-switch"><span class="active">JP</span> / EN</span>
+    <a href="#" class="contact-btn">Contact</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <!-- Decorative SVG chart lines -->
+  <svg class="hero-chart" style="top:40px;right:100px;width:500px;height:250px;">
+    <polyline points="0,200 40,180 80,190 120,140 160,150 200,100 240,110 280,60 320,80 360,40 400,50 440,20 480,30" fill="none" stroke="rgba(100,200,255,0.3)" stroke-width="2"/>
+    <polyline points="0,220 40,210 80,200 120,185 160,190 200,160 240,170 280,130 320,140 360,110 400,120 440,90 480,100" fill="none" stroke="rgba(255,150,100,0.2)" stroke-width="1.5"/>
+    <!-- Candlestick-like bars -->
+    <rect x="60" y="150" width="6" height="40" fill="rgba(50,200,100,0.25)" rx="1"/>
+    <rect x="120" y="120" width="6" height="30" fill="rgba(255,80,80,0.25)" rx="1"/>
+    <rect x="180" y="90" width="6" height="50" fill="rgba(50,200,100,0.25)" rx="1"/>
+    <rect x="240" y="70" width="6" height="35" fill="rgba(50,200,100,0.25)" rx="1"/>
+    <rect x="300" y="50" width="6" height="45" fill="rgba(255,80,80,0.25)" rx="1"/>
+    <rect x="360" y="30" width="6" height="40" fill="rgba(50,200,100,0.25)" rx="1"/>
+    <rect x="420" y="15" width="6" height="30" fill="rgba(50,200,100,0.25)" rx="1"/>
+    <!-- Grid lines -->
+    <line x1="0" y1="50" x2="500" y2="50" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+    <line x1="0" y1="100" x2="500" y2="100" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+    <line x1="0" y1="150" x2="500" y2="150" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+    <line x1="0" y1="200" x2="500" y2="200" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+  </svg>
+  <!-- Circular chart decoration -->
+  <svg class="hero-chart" style="top:60px;left:60px;width:200px;height:200px;">
+    <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(100,60,255,0.15)" stroke-width="12"/>
+    <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(0,200,200,0.25)" stroke-width="12" stroke-dasharray="120 320" stroke-dashoffset="-40" stroke-linecap="round"/>
+    <circle cx="100" cy="100" r="50" fill="none" stroke="rgba(255,200,0,0.12)" stroke-width="8"/>
+    <circle cx="100" cy="100" r="50" fill="none" stroke="rgba(255,100,100,0.2)" stroke-width="8" stroke-dasharray="80 240" stroke-dashoffset="20" stroke-linecap="round"/>
+  </svg>
+  <div class="hero-content">
+    <h1>AI×バイブコーディング<span class="new-badge">NEW</span></h1>
+    <p class="subtitle">Financial Services × Vibe Coding Innovation</p>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="intro">
+  <p>
+    生成AIの急速な進化により、ソフトウェア開発の在り方が根本から変革されつつあります。「バイブコーディング（Vibe Coding）」とは、AIに自然言語で意図を伝えるだけでコードが自動生成される、まったく新しい開発パラダイムです。金融業界においては、規制対応の迅速化、トレーディングアルゴリズムの即時構築、リスクモデルのプロトタイピング高速化など、従来数ヶ月を要したシステム開発を数日で実現する可能性を秘めています。
+  </p>
+  <br>
+  <p>
+    フォーティエンスは、金融領域における深い業界知見と最先端のAI活用ノウハウを融合し、「バイブコーディング」を活用しつつAIとともに戦略策定から実装・定着まで一気通貫で支援する専門チームを新たに立ち上げました。佐藤瑛吾がエグゼクティブコンダクターとして、金融機関の皆様のAI変革の推進を全力で伴奏いたします。
+  </p>
+</section>
+
+<!-- SERVICES -->
+<section class="services">
+  <div class="services-inner">
+    <h2 class="services-title">提供サービス</h2>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <h3>AI戦略コンサルティング</h3>
+        <ul>
+          <li>バイブコーディング導入ロードマップ策定支援</li>
+          <li>生成AI活用による金融DX戦略立案</li>
+          <li>AIガバナンス・リスク管理フレームワーク構築</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <h3>バイブコーディング実装支援</h3>
+        <ul>
+          <li>自然言語駆動型システム開発（Vibe-Driven Development）</li>
+          <li>トレーディングシステム高速プロトタイピング</li>
+          <li>AIペアプログラミング環境構築</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <h3>規制対応・コンプライアンス</h3>
+        <ul>
+          <li>AI活用における金融規制対応支援</li>
+          <li>バイブコーディング成果物の品質保証フレームワーク</li>
+          <li>AIモデルリスク管理（SR 11-7準拠）</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <h3>人材育成・組織変革</h3>
+        <ul>
+          <li>金融エンジニア向けバイブコーディング研修</li>
+          <li>AI×金融ハッカソン企画・運営</li>
+          <li>非エンジニア人材のシチズンデベロッパー化支援</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <h3>リスクモデリング高速化</h3>
+        <ul>
+          <li>AIによるVaRモデル即時構築支援</li>
+          <li>ストレステストシナリオ自動生成</li>
+          <li>信用リスク評価モデルのバイブコーディング実装</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <h3>次世代バンキングプラットフォーム</h3>
+        <ul>
+          <li>バイブコーディングによるAPI基盤構築</li>
+          <li>AI駆動型カスタマーポータル開発</li>
+          <li>レガシーシステム刷新のAI活用アプローチ</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONSULTANT -->
+<section class="consultant-section">
+  <h2 class="consultant-title">チームリーダー</h2>
+  <div class="consultant-card">
+    <div class="consultant-avatar">佐</div>
+    <div class="consultant-info">
+      <h4>佐藤 瑛吾</h4>
+      <p class="role">エグゼクティブコンダクター</p>
+      <p>AI×金融サービス担当</p>
+    </div>
+  </div>  
+</section>
+
+<!-- CONTACT BANNER -->
+<section class="contact-banner">
+  <p>お問い合わせ</p>
+  <a href="#">Contact</a>
+</section>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="#">TOP</a> &gt; <a href="#">インダストリー / サービス</a> &gt; AI×バイブコーディング
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>Industry</h4>
+      <ul>
+        <li><a href="#">製造</a></li>
+        <li><a href="#">消費財</a></li>
+        <li><a href="#">小売・流通</a></li>
+        <li><a href="#">通信・メディア</a></li>
+        <li><a href="#">サービス・公益</a></li>
+        <li><a href="#">ヘルスケア</a></li>
+        <li><a href="#">金融</a></li>
+        <li><a href="#">公共</a></li>
+        <li><a href="#">ライフサイエンス</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Service</h4>
+      <ul>
+        <li><a href="#">経営・事業戦略</a></li>
+        <li><a href="#">新規事業開発</a></li>
+        <li><a href="#">DX</a></li>
+        <li><a href="#">AI×バイブコーディング</a></li>
+        <li><a href="#">グローバル戦略</a></li>
+        <li><a href="#">組織・人材変革</a></li>
+        <li><a href="#">ファイナンシャル・マネジメント</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">Philosophy</a></li>
+        <li><a href="#">代表者挨拶</a></li>
+        <li><a href="#">会社概要</a></li>
+        <li><a href="#">国内・海外拠点</a></li>
+        <li><a href="#">ニュースルーム</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Careers</h4>
+      <ul>
+        <li><a href="#">新卒採用</a></li>
+        <li><a href="#">キャリア採用</a></li>
+        <li><a href="#">障がい者採用</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="policies">
+      <a href="#">ポリシー</a>
+      <a href="#">プライバシーポリシー</a>
+      <a href="#">クッキーポリシー</a>
+      <a href="#">アクセシビリティポリシー</a>
+      <a href="#">サイトマップ</a>
+    </div>
+    <div>
+      <span class="footer-ntt">NTT DATA GROUP</span>
+    </div>
+  </div>
+  <div style="text-align:center; margin-top:20px;">
+    <span class="copyright">Copyright&copy; 2026 Fortience Consulting Inc. All rights reserved.</span>
+  </div>
+</footer>
+
+<!-- APRIL FOOLS -->
+<div class="april-fools-banner">
+  &#127880; April Fools' 2026 &#127880;
+</div>
+
+</body>
+</html>

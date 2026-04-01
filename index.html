@@ -224,6 +224,11 @@
     margin-bottom: 40px;
     color: #1a1a2e;
   }
+  .consultant-cards {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
   .consultant-card {
     display: flex;
     align-items: center;
@@ -242,14 +247,13 @@
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #4a3aaa, #7b68ee);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    color: #fff;
-    font-weight: 700;
+    overflow: hidden;
     flex-shrink: 0;
+  }
+  .consultant-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   .consultant-info h4 {
     font-size: 18px;
@@ -491,7 +495,7 @@
   </p>
   <br>
   <p>
-    フォーティエンスは、金融領域における深い業界知見と最先端のAI活用ノウハウを融合し、「バイブコーディング」を活用しつつAIとともに戦略策定から実装・定着まで一気通貫で支援する専門チームを新たに立ち上げました。佐藤瑛吾がエグゼクティブコンダクターとして、金融機関の皆様のAI変革の推進を全力で伴奏いたします。
+    フォーティエンスは、金融領域における深い業界知見と最先端のAI活用ノウハウを融合し、「バイブコーディング」で戦略策定から実装・定着まで一気通貫で支援する専門チームを新たに立ち上げました。佐藤瑛吾がエグゼクティブコンダクターとして、金融機関の皆様のAＩ変革を全力でオーケストラと共に伴奏いたします。
   </p>
 </section>
 
@@ -561,15 +565,25 @@
 
 <!-- CONSULTANT -->
 <section class="consultant-section">
-  <h2 class="consultant-title">チームリーダー</h2>
-  <div class="consultant-card">
-    <div class="consultant-avatar">佐</div>
-    <div class="consultant-info">
-      <h4>佐藤 瑛吾</h4>
-      <p class="role">エグゼクティブコンダクター</p>
-      <p>AI×金融サービス担当</p>
+  <h2 class="consultant-title">コンサルタント</h2>
+  <div class="consultant-cards">
+    <div class="consultant-card">
+      <div class="consultant-avatar"><img src="sato.jpg" alt="佐藤 瑛吾"></div>
+      <div class="consultant-info">
+        <h4>佐藤 瑛吾</h4>
+        <p class="role"コンダクター</p>
+        <p>AI×バイブコーディング × 金融サービス担当</p>
+      </div>
     </div>
-  </div>  
+    <div class="consultant-card">
+      <div class="consultant-avatar"><img src="pm.jpg" alt="エグゼクティブリーダー"></div>
+      <div class="consultant-info">
+        <h4>エグゼクティブリーダー</h4>
+        <p class="role">マネージングディレクター</p>
+        <p>金融サービス プログラムマネジメント統括</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- CONTACT BANNER -->

@@ -628,6 +628,9 @@
   let chart;
   const colors = {A:'#8A9099', B:'#23405E', C:'#5B7C99', D:'#9FA9B4', E:'#A8842F'};
   function render(){
+    try { renderInner(); } catch(e){ console.error(e); const el=$('bars'); if (el && !el.innerHTML) el.innerHTML='<p style="color:#E9C86A;font-size:.85rem">計算エラー: '+e.message+'</p>'; }
+  }
+  function renderInner(){
     const v = read();
     const m = model(v);
     const S = m.S;
@@ -689,7 +692,12 @@
         annotationLine:{y:m.Y}},
       scales:{x:{title:{display:true,text:'経過年'},grid:{display:false}}, y:{title:{display:true,text:'億円'},grid:{color:'#E4E7E4'}}}}};
     const vline = {id:'vline', afterDraw(ch){ const x = ch.scales.x.getPixelForValue(m.Y-1); const {top,bottom}=ch.chartArea; const c=ch.ctx; c.save(); c.strokeStyle='#A8842F'; c.setLineDash([3,3]); c.beginPath(); c.moveTo(x,top); c.lineTo(x,bottom); c.stroke(); c.setLineDash([]); c.fillStyle='#A8842F'; c.font='11px sans-serif'; c.fillText(`相続想定（${m.Y}年目・父${v.deathAge}歳）`, x+6, top+12); c.restore(); }};
-    if (chart){ chart.data=cfg.data; chart.options=cfg.options; chart.update(); }
+    if (typeof Chart === 'undefined'){
+      // Chart.jsが未ロード（プレビュー環境など）でも、他の描画は止めない
+      const box = $('chart').parentElement;
+      if (!box.querySelector('.chart-wait')){ const p=document.createElement('p'); p.className='chart-wait'; p.style.cssText='font-size:.8rem;color:#6E7784'; p.textContent='グラフを読み込み中… 表示されない場合はファイルを直接ブラウザで開いてください（数値・表は動作しています）'; box.appendChild(p); }
+      if (!window.__chartPoll){ window.__chartPoll = setInterval(()=>{ if (typeof Chart !== 'undefined'){ clearInterval(window.__chartPoll); const w=document.querySelector('.chart-wait'); if(w) w.remove(); render(); } }, 500); }
+    } else if (chart){ chart.data=cfg.data; chart.options=cfg.options; chart.update(); }
     else chart = new Chart($('chart'), Object.assign(cfg,{plugins:[vline]}));
 
     // table
@@ -750,11 +758,11 @@
 
   // ---------- wire ----------
   ids.forEach(id=>{
-    $(id).addEventListener('input', ()=>{
+    ['input','change'].forEach(ev=>$(id).addEventListener(ev, ()=>{
       if (id==='rate') $('rate-v').textContent = parseFloat($('rate').value).toFixed(1)+'％';
       if (id==='fatherReturn') $('fatherReturn-v').textContent = parseFloat($('fatherReturn').value).toFixed(1)+'％';
       render();
-    });
+    }));
   });
   $('imputed').addEventListener('change', render);
   $('reset').addEventListener('click', ()=>{
